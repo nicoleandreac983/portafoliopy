@@ -1,0 +1,77 @@
+{% include 'admin/cabecera.html' %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+        <div class="card">
+            <div class="card-header bg-warning">
+                Datos del trabajo
+            </div>
+            <div class="card-body">
+                
+                <form action="/admin/trabajos/guardar" method="post" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label for="txtNombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" name="txtNombre" id="txtNombre" aria-describedby="helpId" placeholder="Escriba el Nombre de este trabajo">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="txtImagen" class="form-label">Imagen:</label>
+                        <input type="file" class="form-control" name="txtImagen" id="txtImagen" aria-describedby="helpId" placeholder="Agrege imagen">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="txtDes" class="form-label">Descripción:</label>
+                        <input type="text" class="form-control" name="txtDes" id="txtDes" aria-describedby="helpId" placeholder="Agrege descripción">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+            </div>
+            <div class="card-footer bg-warning text-muted">
+                
+            </div>
+        </div>
+    </div>
+        <div class="col-md-7">
+            
+            <div class="table-responsive table table-bordered">
+                <table class="table table-info">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for trabajos in trabajos %}
+                        <tr class="">
+                            <td scope="row">{{ trabajos[0] }}</td>
+                            <td>{{ trabajos[1] }}</td>
+                            <td>
+                                <img width="100" src="/img/{{ trabajos[2] }}" class="img-fluid rounded-top" alt="">
+                                {{ trabajos[2] }}    
+                            </td>
+
+                            <td>{{ trabajos[3] }}</td>
+                            <td>
+                                <form action="/admin/trabajos/borrar" method="post">
+                                    <input value="{{ trabajos[0] }}" type="hidden" name="txtID" id="txtID">
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+{% include 'admin/pie.html' %}
